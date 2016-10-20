@@ -21,9 +21,10 @@ public class DbDAO implements BCDao {
 
 
         Connection connection = null;
+        PreparedStatement st = null;
         try {
             connection = DriverManager.getConnection(url,"root","root");
-            PreparedStatement st;
+
             try {
                 st = connection.prepareStatement(addStatement);
                 st.setInt(1, id);
@@ -38,15 +39,30 @@ public class DbDAO implements BCDao {
           throw new DAOException();
 
         }
+        finally {
+            if (connection!= null)
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw  new DAOException();
+                }
+            try {
+                st.close();
+            } catch (SQLException e) {
+                throw new DAOException();
+            }
+
+        }
     }
 
     @Override
     public void deleteGoods(int id) throws DAOException {
         Connection connection = null;
+        PreparedStatement st = null;
         try {
             connection = DriverManager.getConnection(url,"root","root");
 
-            PreparedStatement st;
+
             try {
                 st = connection.prepareStatement(deleteStatement);
                 st.setInt(1, id);
@@ -58,20 +74,35 @@ public class DbDAO implements BCDao {
             throw new DAOException();
 
         }
+        finally {
+            if (connection!= null)
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw  new DAOException();
+                }
+            try {
+                st.close();
+            } catch (SQLException e) {
+                throw new DAOException();
+            }
+
+        }
     }
 
     @Override
     public List<Goods> findGoods(String category)throws DAOException {
         List<Goods> list = new ArrayList<>();
-    StringBuilder str = new StringBuilder("SELECT * FROM `bicycle_goods`.`features` WHERE `category` =" );
-            str.append("'");
+        StringBuilder str = new StringBuilder("SELECT * FROM `bicycle_goods`.`features` WHERE `category` =" );
+        str.append("'");
         str.append(category);
         str.append("'");
         Connection connection = null;
+        Statement st = null;
         try {
             connection = DriverManager.getConnection(url,"root","root");
 
-            Statement st = connection.createStatement();
+             st = connection.createStatement();
             try {
 
                 ResultSet rs = st.executeQuery(str.toString());
@@ -86,6 +117,20 @@ public class DbDAO implements BCDao {
             throw new DAOException();
 
         }
+        finally {
+            if (connection!= null)
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw  new DAOException();
+                }
+            try {
+                st.close();
+            } catch (SQLException e) {
+                throw new DAOException();
+            }
+
+        }
         return list;
     }
 
@@ -94,9 +139,10 @@ public class DbDAO implements BCDao {
         List<Goods> list = new ArrayList<>();
 
         Connection connection = null;
+        PreparedStatement st = null;
         try {
             connection = DriverManager.getConnection(url,"root","root");
-            PreparedStatement st;
+
             try {
                 st = connection.prepareStatement(selectStatement);
                 ResultSet resultSet = st.executeQuery();
@@ -109,6 +155,20 @@ public class DbDAO implements BCDao {
             }
         } catch (SQLException e) {
             throw new DAOException();
+
+        }
+        finally {
+        if (connection!= null)
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw  new DAOException();
+            }
+            try {
+                st.close();
+            } catch (SQLException e) {
+                throw new DAOException();
+            }
 
         }
         return list;
