@@ -13,7 +13,7 @@ class CommandProvider {
     private Map<String, Command> commands = new HashMap<String, Command>();
 
     CommandProvider() {
-        commands.put("ADD_NEW_GOODS", new AddGoods());
+        commands.put("ADD_NEW_GOODS", new AddGoods());// и когда вы научитесь именовать константные строки?
         commands.put("DELETE_GOODS", new DeleteGoods());
         commands.put("RETURN_BY_CATEGORY", new ShowByCategoryGoods());
         commands.put("SHOW_INFORMATION", new ShowInformation());
