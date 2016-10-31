@@ -5,6 +5,8 @@ import java.util.Comparator;
 /**
  * Created by Алексей on 19.10.2016.
  */
+// с какого перепугу в этот пакет компаратор затесался
+// вот где используешь его, там и храни
 public class CostComparator implements Comparator<Goods>{
 
     @Override
