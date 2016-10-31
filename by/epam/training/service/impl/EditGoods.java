@@ -17,10 +17,10 @@ public class EditGoods implements EditGoodsService {
     @Override
     public void addGoods(int id, String category, String name, double cost) throws ServiceException {
         if (category == null || "".equals(category) || name == null || "".equals(name)) {
-            throw new ServiceException("message");
+            throw new ServiceException("message");// да что бы у тебя всю жизнь в логах только такие мессэджи и встречались
         }
         DAOFactory factory = DAOFactory.getInstance();
-        BCDao dao = factory.getNBDao();
+        BCDao dao = factory.getNBDao();// какое-такое getNBDAO?
         try {
             dao.addGoods(id, category, name, cost);
         } catch (DAOException e) {
