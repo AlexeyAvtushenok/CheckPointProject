@@ -4,7 +4,7 @@ import by.epam.training.bean.entity.Goods;
 import by.epam.training.dao.BCDao;
 import by.epam.training.dao.exception.DAOException;
 
-import java.sql.*;
+import java.sql.*;// не импортим со *
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +23,9 @@ public class DbDAO implements BCDao {
         Connection connection = null;
         PreparedStatement st = null;
         try {
-            connection = DriverManager.getConnection(url,"root","root");
+            connection = DriverManager.getConnection(url,"root","root");// что делаем с константными строками?
 
-            try {
+            try {// try в try в одной области видимости - что за бред?
                 st = connection.prepareStatement(addStatement);
                 st.setInt(1, id);
                 st.setString(2, category);
@@ -33,7 +33,7 @@ public class DbDAO implements BCDao {
                 st.setDouble(4, cost);
                 st.executeUpdate();
             } catch (SQLException e1) {
-                throw new DAOException();
+                throw new DAOException();// о, потерял исходное исключение, растаряша
             }
         } catch (SQLException e) {
           throw new DAOException();
@@ -47,9 +47,9 @@ public class DbDAO implements BCDao {
                     throw  new DAOException();
                 }
             try {
-                st.close();
+                st.close();// ты уже соединение закрыл, зачем же со statement-от мучаешься?
             } catch (SQLException e) {
-                throw new DAOException();
+                throw new DAOException();// ну и зачет здесь в блоке finelly выбрасывать исключение?
             }
 
         }
@@ -149,6 +149,7 @@ public class DbDAO implements BCDao {
                 while (resultSet.next())
                 {
                     list.add(new Goods(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getDouble(4)));
+                    // а вот вспомнишь ли ты, что возвращает getString(3), не лазя по другому коду?
                 }
             } catch (SQLException e1) {
                 throw new DAOException();

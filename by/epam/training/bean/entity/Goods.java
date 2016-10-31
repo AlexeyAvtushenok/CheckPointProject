@@ -3,8 +3,8 @@ package by.epam.training.bean.entity;
 /**
  * Created by Алексей on 19.10.2016.
  */
-public class Goods {
-    int id;
+public class Goods {//equals, hashCode где?
+    int id;// чего испугались атрибуты доступа?
     String category;
     String name;
     double cost;

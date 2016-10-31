@@ -1,4 +1,5 @@
-package by.epam.training.controller.controller;
+package by.epam.training.controller.controller;// контроллер.контроллер - н-да, вот как сработает фантазия, так и слов нет
+// не надо ТАК называть пакеты, у тебя уже есть пакет контроллер - там и храни
 
 import by.epam.training.bean.Request;
 import by.epam.training.bean.Response;
